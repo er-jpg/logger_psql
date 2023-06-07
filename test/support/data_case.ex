@@ -2,6 +2,8 @@ defmodule LoggerPSQL.DataCase do
   use ExUnit.CaseTemplate
   import ExUnit.CaptureIO
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias LoggerPSQL.Repo
@@ -13,8 +15,8 @@ defmodule LoggerPSQL.DataCase do
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(LoggerPSQL.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    pid = Sandbox.start_owner!(LoggerPSQL.Repo, shared: not tags[:async])
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
   end
 
   def msg(msg) do
@@ -28,17 +30,15 @@ defmodule LoggerPSQL.DataCase do
     end
   end
 
-  def wait_for_logger() do
-    try do
-      :gen_event.which_handlers(Logger)
-    catch
-      :exit, _ ->
-        Process.sleep(10)
-        wait_for_logger()
-    else
-      _ ->
-        :ok
-    end
+  def wait_for_logger do
+    :gen_event.which_handlers(Logger)
+  catch
+    :exit, _ ->
+      Process.sleep(10)
+      wait_for_logger()
+  else
+    _ ->
+      :ok
   end
 
   def capture_log(level \\ :debug, fun) do

@@ -4,6 +4,8 @@ defmodule LoggerPSQL.MixProject do
   def project do
     [
       app: :logger_psql,
+      description: description(),
+      package: package(),
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
@@ -26,7 +28,20 @@ defmodule LoggerPSQL.MixProject do
     [
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:logger_json, "~> 5.1"}
+      {:logger_json, "~> 5.1"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp description do
+    "A Logger backend for PostgreSQL."
+  end
+
+  defp package do
+    [
+      maintainers: ["Bruno Saragosa"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/er-jpg/logger_psql"}
     ]
   end
 
