@@ -16,6 +16,9 @@ config :logger_json, :backend,
 
 config :logger_psql, :backend,
   level: :info,
+  repo: LoggerPSQL.Repo,
+  schema_name: "logs",
+  prefix: "log",
   metadata_filter: [:ansi_color, :mfa, :gl]
 
 config :logger,

@@ -27,3 +27,6 @@ logger_psql-*.tar
 
 # vscode
 .elixir_ls
+
+# Generated Migrations
+priv/repo/migrations

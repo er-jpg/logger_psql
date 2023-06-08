@@ -1,12 +1,15 @@
 defmodule LoggerPSQL.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :logger_psql,
       description: description(),
       package: package(),
-      version: "0.1.0",
+      docs: docs(),
+      version: @version,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -29,6 +32,7 @@ defmodule LoggerPSQL.MixProject do
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:logger_json, "~> 5.1"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
@@ -42,6 +46,18 @@ defmodule LoggerPSQL.MixProject do
       maintainers: ["Bruno Saragosa"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/er-jpg/logger_psql"}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/er-jpg/logger_psql",
+      extras: [
+        "README.md": [title: "Overview"],
+        LICENSE: [title: "License"]
+      ]
     ]
   end
 
