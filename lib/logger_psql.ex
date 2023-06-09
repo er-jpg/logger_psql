@@ -1,4 +1,7 @@
 defmodule LoggerPSQL do
+  @moduledoc """
+  PostgreSQL backend for Logger.
+  """
   @behaviour :gen_event
 
   alias LoggerPSQL.Log
@@ -13,8 +16,6 @@ defmodule LoggerPSQL do
 
   @impl true
   def init(LoggerPSQL) do
-    IO.inspect("started logger backend")
-
     config = Application.fetch_env!(:logger_psql, :backend)
     {:ok, init(config, %__MODULE__{})}
   end
@@ -92,7 +93,6 @@ defmodule LoggerPSQL do
         metadata: metadata
       })
       |> Log.changeset()
-      |> IO.inspect(label: :changeset)
 
     data =
       changeset
@@ -101,7 +101,6 @@ defmodule LoggerPSQL do
 
     %{changeset | data: data}
     |> repo.insert()
-    |> IO.inspect(label: "repo_insert")
     |> case do
       {:ok, _struct} ->
         :ok

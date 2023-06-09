@@ -1,4 +1,5 @@
 defmodule LoggerPSQL.DataCase do
+  @moduledoc false
   use ExUnit.CaseTemplate
   import ExUnit.CaptureIO
 

@@ -1,4 +1,5 @@
 defmodule LoggerPSQL.Log do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 

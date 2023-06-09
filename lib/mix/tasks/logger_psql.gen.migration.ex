@@ -1,4 +1,7 @@
 defmodule Mix.Tasks.LoggerPsql.Gen.Migration do
+  @moduledoc """
+  Generates the required migration for LoggerPSQL.
+  """
   use Mix.Task
 
   import Mix.Ecto
@@ -35,9 +38,9 @@ defmodule Mix.Tasks.LoggerPsql.Gen.Migration do
           db_prefix: prefix
         )
 
-        target_file = Path.join(path, "#{timestamp()}_logger_psql.exs")
-        create_directory(path)
-        create_file(target_file, generated_file)
+      target_file = Path.join(path, "#{timestamp()}_logger_psql.exs")
+      create_directory(path)
+      create_file(target_file, generated_file)
     end)
   end
 
