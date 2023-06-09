@@ -1,5 +1,7 @@
 # LoggerPSQL
 
+[![Hex.pm](https://img.shields.io/hexpm/v/logger_psql.svg)]()
+
 **TODO: Add description**
 
 ## Installation
