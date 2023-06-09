@@ -9,10 +9,12 @@ defmodule LoggerPSQL do
             metadata: nil,
             metadata_filter: nil,
             repo: nil,
-            schema_name: nil
+            prefix: nil
 
   @impl true
   def init(LoggerPSQL) do
+    IO.inspect("started logger backend")
+
     config = Application.fetch_env!(:logger_psql, :backend)
     {:ok, init(config, %__MODULE__{})}
   end
@@ -27,7 +29,7 @@ defmodule LoggerPSQL do
     metadata = Keyword.get(config, :metadata, []) |> configure_metadata()
     metadata_filter = Keyword.get(config, :metadata_filter, [])
     repo = Keyword.get(config, :repo)
-    schema_name = Keyword.get(config, :schema_name, "public")
+    prefix = Keyword.get(config, :prefix, "public")
 
     %{
       state
@@ -35,7 +37,7 @@ defmodule LoggerPSQL do
         level: level,
         metadata_filter: metadata_filter,
         repo: repo,
-        schema_name: schema_name
+        prefix: prefix
     }
   end
 
@@ -74,7 +76,7 @@ defmodule LoggerPSQL do
     is_nil(min_level) or Logger.compare_levels(lvl, min_level) != :lt
   end
 
-  defp insert_log(level, msg, _ts, md, %{repo: repo, schema_name: schema_name} = state) do
+  defp insert_log(level, msg, _ts, md, %{repo: repo, prefix: prefix} = state) do
     metadata =
       md
       |> filter_metadata(state.metadata_filter)
@@ -90,14 +92,16 @@ defmodule LoggerPSQL do
         metadata: metadata
       })
       |> Log.changeset()
+      |> IO.inspect(label: :changeset)
 
     data =
       changeset
       |> Map.get(:data)
-      |> Ecto.put_meta(prefix: schema_name)
+      |> Ecto.put_meta(prefix: prefix)
 
     %{changeset | data: data}
     |> repo.insert()
+    |> IO.inspect(label: "repo_insert")
     |> case do
       {:ok, _struct} ->
         :ok
