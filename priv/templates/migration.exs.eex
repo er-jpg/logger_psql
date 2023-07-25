@@ -2,11 +2,11 @@ defmodule <%= module_prefix %>.Repo.Migrations.CreateLogTable do
   use Ecto.Migration
 
   def change do
-    <%= if not is_nil(db_prefix) do %>
+    <%= unless is_nil(db_prefix) or db_prefix == "" do %>
     execute("CREATE SCHEMA <%= db_prefix %>", "DROP SCHEMA <%= db_prefix %> CASCADE")
     <% end %>
 
-    create table(<%= inspect(schema_name) %>, primary_key: false<%= if not is_nil(db_prefix), do: ", prefix: \"#{db_prefix}\"" %>) do
+    create table(<%= inspect(schema_name) %>, primary_key: false<%= unless is_nil(db_prefix) or db_prefix == "", do: ", prefix: \"#{db_prefix}\"" %>) do
       add :id, :binary_id, primary_key: true
       add :level, :string
       add :application, :string

@@ -21,6 +21,7 @@ Fixing message field.
 ### Fixed
   - Fixes [https://github.com/er-jpg/logger_psql/issues/1](#1), allowing messages other than string to be inserted
   - Typos in documentation
+  - Fixed if in config prefix was set to an empty string, it would fail
 
 ## [0.1.1] - 2023-06-09
 
