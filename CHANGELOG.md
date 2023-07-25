@@ -16,6 +16,7 @@ Fixing message field.
         modify(:message, :text)
       end
     ```
+  - Bumped elixir version to 1.15
 
 ### Fixed
   - Fixes [https://github.com/er-jpg/logger_psql/issues/1](#1), allowing messages other than string to be inserted

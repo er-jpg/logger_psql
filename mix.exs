@@ -10,7 +10,7 @@ defmodule LoggerPSQL.MixProject do
       package: package(),
       docs: docs(),
       version: @version,
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
