@@ -89,7 +89,7 @@ defmodule LoggerPSQL do
       |> Map.merge(%{
         level: to_string(level),
         time: DateTime.from_unix!(Keyword.get(md, :time), :microsecond),
-        message: msg,
+        message: format(msg),
         metadata: metadata
       })
       |> Log.changeset()
@@ -109,6 +109,9 @@ defmodule LoggerPSQL do
         raise "failure while storing to db console messages: " <> inspect(error)
     end
   end
+
+  defp format(msg) when is_bitstring(msg), do: msg
+  defp format(msg), do: inspect(msg)
 
   defp filter_metadata(metadata, :all), do: metadata
 

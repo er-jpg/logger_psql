@@ -30,3 +30,6 @@ logger_psql-*.tar
 
 # Generated Migrations
 priv/repo/migrations
+
+# OSX Files
+.DS_Store
