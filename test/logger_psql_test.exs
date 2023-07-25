@@ -29,7 +29,7 @@ defmodule LoggerPSQLTest do
   #   assert Logger.add_backend(LoggerPSQL) == {:error, :already_present}
   # end
 
-  test "info/2" do
+  test "Stores to database message" do
     message = "Log example message"
 
     assert capture_log(fn ->
@@ -39,6 +39,20 @@ defmodule LoggerPSQLTest do
     assert %Log{message: ^message} =
              from(l in Log,
                where: l.message == ^message
+             )
+             |> Repo.one()
+  end
+
+  test "Long text message" do
+    long_message = Faker.Lorem.paragraph(1..5)
+
+    assert capture_log(fn ->
+             assert Logger.info(long_message, []) == :ok
+           end)
+
+    assert %Log{message: ^long_message} =
+             from(l in Log,
+               where: l.message == ^long_message
              )
              |> Repo.one()
   end

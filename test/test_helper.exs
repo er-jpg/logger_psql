@@ -1,4 +1,5 @@
 ExUnit.start()
+Faker.start()
 
 alias LoggerPSQL.Repo
 
