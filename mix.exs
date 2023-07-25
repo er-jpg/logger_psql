@@ -1,7 +1,7 @@
 defmodule LoggerPSQL.MixProject do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "0.1.2"
 
   def project do
     [
@@ -33,7 +33,8 @@ defmodule LoggerPSQL.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:logger_json, "~> 5.1"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:faker, "~> 0.17", only: :test}
     ]
   end
 
@@ -66,7 +67,14 @@ defmodule LoggerPSQL.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: [
+        "ecto.drop --quiet",
+        "ecto.create --quiet",
+        "logger_psql.gen.migration",
+        "ecto.migrate",
+        "test",
+        "logger_psql.rm.migration"
+      ]
     ]
   end
 

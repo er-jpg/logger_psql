@@ -11,7 +11,7 @@ Add `logger_psql` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:logger_psql, "~> 0.1.1"}
+    {:logger_psql, "~> 0.1.2"}
   ]
 end
 ```
@@ -26,7 +26,7 @@ config :logger,
   level: :info
 ```
 
-Then configure the logger_psql itself to the desidered repo:
+Then configure the logger_psql itself to the desired repo:
 
 ```elixir
 config :logger_psql, :backend,
