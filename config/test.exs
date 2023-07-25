@@ -9,6 +9,7 @@ config :logger_psql, LoggerPSQL.Repo,
 
 config :logger_json, :backend,
   metadata: :all,
+  prefix: "log",
   json_encoder: Jason
 
 config :logger,

@@ -4,6 +4,8 @@ defmodule LoggerPSQL.Log do
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
+  @schema_prefix Application.compile_env(:logger_psql, [:backend, :prefix], "public")
+
   schema "logs" do
     field(:level, :string)
     field(:application, :string)
