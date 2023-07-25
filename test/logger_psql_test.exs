@@ -4,6 +4,10 @@ defmodule LoggerPSQLTest do
 
   require Logger
 
+  import Ecto.Query, warn: false
+
+  alias LoggerPSQL.{Log, Repo}
+
   setup_all do
     Logger.configure_backend(:console, metadata: [:application, :module])
     on_exit(fn -> Logger.configure_backend(:console, metadata: []) end)
@@ -26,18 +30,16 @@ defmodule LoggerPSQLTest do
   # end
 
   test "info/2" do
-    Logger.warn("walealkjsdklajsdaklj")
+    message = "Log example message"
 
     assert capture_log(fn ->
-             assert Logger.info("hello", []) == :ok
+             assert Logger.info(message, []) == :ok
            end)
 
-    # assert capture_log(:notice, fn ->
-    #          assert Logger.info("hello", []) == :ok
-    #        end) == ""
-
-    # assert capture_log(:notice, fn ->
-    #          assert Logger.info(raise("not invoked"), []) == :ok
-    #        end) == ""
+    assert %Log{message: ^message} =
+             from(l in Log,
+               where: l.message == ^message
+             )
+             |> Repo.one()
   end
 end

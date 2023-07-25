@@ -17,7 +17,7 @@ defmodule <%= module_prefix %>.Repo.Migrations.CreateLogTable do
       add :module, :string
       add :pid, :string
       add :time, :utc_datetime
-      add :message, :string
+      add :message, :text
       add :metadata, :map
       add :request_id, :string
 
