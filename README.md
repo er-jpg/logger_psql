@@ -11,7 +11,7 @@ Add `logger_psql` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:logger_psql, "~> 0.1.2"}
+    {:logger_psql, "~> 0.1.3"}
   ]
 end
 ```
