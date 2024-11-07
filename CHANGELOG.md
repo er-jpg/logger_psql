@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.3] - 2024-11-07
+
+Updated versions.
+
+### Changed
+  - Updated version of elixir and erlang in tool-versions and mix file
+  - Updated all deps
+  - Renamed function
+
+
 ## [0.1.2] - 2023-07-25
 
 Fixing message field.

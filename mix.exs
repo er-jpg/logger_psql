@@ -1,7 +1,7 @@
 defmodule LoggerPSQL.MixProject do
   use Mix.Project
 
-  @version "0.1.2"
+  @version "0.1.3"
 
   def project do
     [
@@ -10,7 +10,7 @@ defmodule LoggerPSQL.MixProject do
       package: package(),
       docs: docs(),
       version: @version,
-      elixir: "~> 1.15",
+      elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
@@ -57,6 +57,7 @@ defmodule LoggerPSQL.MixProject do
       source_url: "https://github.com/er-jpg/logger_psql",
       extras: [
         "README.md": [title: "Overview"],
+        "CHANGELOG.md": [title: "Changelog"],
         LICENSE: [title: "License"]
       ]
     ]
