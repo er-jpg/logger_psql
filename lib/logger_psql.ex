@@ -53,7 +53,7 @@ defmodule LoggerPSQL do
   end
 
   def handle_event({level, _gl, {Logger, msg, ts, md}}, %{} = state) do
-    if is_level_okay?(level, state.level) do
+    if level_okay?(level, state.level) do
       insert_log(level, msg, ts, md, state)
     end
 
@@ -73,7 +73,7 @@ defmodule LoggerPSQL do
     {:ok, state}
   end
 
-  defp is_level_okay?(lvl, min_level) do
+  defp level_okay?(lvl, min_level) do
     is_nil(min_level) or Logger.compare_levels(lvl, min_level) != :lt
   end
 
