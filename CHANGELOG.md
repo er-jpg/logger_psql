@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] - 2025-06-09
+
+Updated versions.
+
+### Changed
+  - Updated elixir and erlang version in `.tool-versions` and mix file
+  - Updated deps
+
 ## [0.1.3] - 2024-11-07
 
 Updated versions.
@@ -54,4 +62,3 @@ Initial Release of the package.
   - Added License
 
 ### Changed
-### Fixed
